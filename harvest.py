@@ -106,7 +106,7 @@ melon_typess = make_melon_types()
 print_pairing_info(melon_typess)
 
 
-class Melon:
+class Melon(MelonType):
     """A melon in a melon harvest."""
 
     def __init__(self, code, shape_rating, color_rating, harvested_from, harvested_by):
@@ -119,10 +119,10 @@ class Melon:
         self.harvested_by = harvested_by
         
 
-    def is_sellable(self, shape_rating, color_rating):
+    def is_sellable(self, shape_rating, color_rating, harvested_from):
         """Checks the sellability of the melon."""
 
-        if self.shape_rating > 5 and self.color_rating > 5:
+        if self.shape_rating > 5 and self.color_rating > 5 and self.harvested_from != "Field_3":
             return True
         else:
             return False
@@ -158,7 +158,7 @@ def make_melons(melon_types):
 
     Melon_4 = Melon(
         "cas",
-        10
+        10,
         6,
         "Field_35",
         "Sheila")
@@ -188,7 +188,6 @@ def make_melons(melon_types):
         "Michael")
     melon_objects.append(Melon_7)
 
-
     Melon_8 = Melon(
         "mush",
         6,
@@ -205,8 +204,16 @@ def make_melons(melon_types):
         "Sheila")
     melon_objects.append(Melon_9)
 
+    return melon_objects
 
 def get_sellability_report(melons):
     """Given a list of melon object, prints whether each one is sellable."""
 
-    # Fill in the rest
+    for melon in melons:
+        harvested_by = f"Havested by {harvested_by}"
+        field_num = f"Field num{harvested_from}"
+        status = "Can be sold" if melon.is_sellable() else "Not sellable"
+        print(f"{harvested_by} from {harvested_from} {status}")
+
+melons = get_sellability_report()
+print_get_sellability_report(melons)
